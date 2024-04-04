@@ -19,11 +19,9 @@ def controle_robo():
     if request.method == 'GET':
         return render_template('controle_robo.html')
     elif request.method == 'POST':
-        # Obtendo os dados do formulário
         x = int(request.form['x'])
         y = int(request.form['y'])
         z = int(request.form['z'])
-
 
         xi, yi, zi, _,_,_,_,_ = robo.pose()
         
@@ -34,7 +32,6 @@ def controle_robo():
         robo.move_to(xi+x, yi+y, zi+z, 0, wait=True)
         time.sleep(0.5)
         
-        # Salvando os movimentos na base de dados
         timestamp = time.strftime('%Y-%m-%d %H:%M:%S')
         db.insert({'x': x, 'y': y, 'z': z, 'timestamp': timestamp})
 
@@ -44,16 +41,14 @@ def obter_logs():
     logs = db.all()
     return render_template('logs.html', logs=logs)
 
-    # Rota para atualizar um registro de log
+# Rota para atualizar um registro de log
 @app.route('/logs/update/<int:log_id>', methods=['POST'])
 def atualizar_log(log_id):
     if request.method == 'POST':
-        # Obtendo os dados atualizados do formulário
         x = int(request.form['x'])
         y = int(request.form['y'])
         z = int(request.form['z'])
 
-        # Atualizando o registro na base de dados
         db.update({'x': x, 'y': y, 'z': z}, doc_ids=[log_id])
 
         return 'Registro atualizado com sucesso!'
@@ -62,7 +57,6 @@ def atualizar_log(log_id):
 @app.route('/logs/delete/<int:log_id>', methods=['POST'])
 def excluir_log(log_id):
     if request.method == 'POST':
-        # Excluindo o registro da base de dados
         db.remove(doc_ids=[log_id])
 
         return 'Registro excluído com sucesso!'
