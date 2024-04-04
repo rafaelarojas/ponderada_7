@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Controle do Robô</title>
+    <script src="https://unpkg.com/htmx.org@1.9.11" integrity="sha384-0gxUXCCR8yv9FM2b+U3FDbsKthCI66oH5IA9fHppQq9DDMHuMauqq1ZHBpJxQ0J0" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="../static/style.css">
+</head>
+<body>
+    <div class="center"><h1>Controle do Robô</h1></div>
+    <br>
+    <div id="formContainer">
+        <div>
+            <div class='center'><button type="button" hx-on:click="window.location.href='http://127.0.0.1:5000/controleRobo'">Controlar Robô</button></div><br>
+            <div class="center"><button type="button" hx-on:click="window.location.href='http://127.0.0.1:5000/logs'">Histórico</button></div>
+        </div>
+    </div>
+</body>
+</html>

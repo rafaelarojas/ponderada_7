@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Histórico do Robô</title>
+    <link rel="stylesheet" href="../static/logs_style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Histórico de movimentos</h1>
+        <div id="logs">
+            {% for log in logs %}
+            <div class="log-container">
+                <div class="log-details">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>X</th>
+                                <th>Y</th>
+                                <th>Z</th>
+                                <th>Timestamp</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{{ log.x }}</td>
+                                <td>{{ log.y }}</td>
+                                <td>{{ log.z }}</td>
+                                <td>{{ log.timestamp }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="log-actions">
+                    <form action="/logs/update/{{ log.doc_id }}" method="post">
+                        <label for="x">X:</label>
+                        <input type="number" id="x" name="x" value="{{ log.x }}" required>
+                        <br>
+                        <label for="y">Y:</label>
+                        <input type="number" id="y" name="y" value="{{ log.y }}" required>
+                        <br>
+                        <label for="z">Z:</label>
+                        <input type="number" id="z" name="z" value="{{ log.z }}" required>
+                        <br>
+                        <button type="submit">Atualizar</button>
+                    </form>
+                    <form action="/logs/delete/{{ log.doc_id }}" method="post">
+                        <button type="submit">Excluir</button>
+                    </form>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
